@@ -12,11 +12,6 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: read
-      statuses: write
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -24,15 +19,27 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Super-linter
+      - name: Run Super-Linter
         uses: super-linter/super-linter@v8.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_JAVA: true
+          # FAIL_ON_ERROR: true   # за замовчуванням true — лінтер упаде при помилках
+
+      # Додатково: згенерувати Checkstyle-звіт, щоб бачити деталі
+      - name: Run Checkstyle (generate report)
+        run: mvn -B -DskipTests checkstyle:checkstyle || true
+
+      - name: Upload Checkstyle report
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkstyle-report
+          path: target/site/checkstyle.html
 
   build:
-    name: Java Maven CI
+    name: Java Maven CI (build)
     runs-on: ubuntu-latest
+    needs: lint
     steps:
       - uses: actions/checkout@v4
 
@@ -44,4 +51,4 @@ jobs:
           cache: 'maven'
 
       - name: Build and Test with Maven
-        run: mvn clean install
+        run: mvn -B -V clean install
