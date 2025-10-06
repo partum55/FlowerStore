@@ -4,15 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+@Getter
 @Setter
 @ToString
 public class Flower {
-    @Getter
     private double sepalLength;
     private FlowerColor color;
-    @Getter
     private double price;
-    @Getter
     private FlowerType flowerType;
 
     public Flower(double sepalLength, FlowerColor color, double price, FlowerType flowerType) {
