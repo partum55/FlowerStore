@@ -1,11 +1,14 @@
 package ua.edu.ucu;
 
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
 public class FlowerPack {
-    @Getter
     private Flower flower;
-    @Getter
     private int quantity;
 
     public FlowerPack(Flower flower, int quantity) {
@@ -16,5 +19,4 @@ public class FlowerPack {
     public double getPrice() {
         return flower.getPrice() * quantity;
     }
-
 }
