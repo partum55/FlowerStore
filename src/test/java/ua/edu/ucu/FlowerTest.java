@@ -1,4 +1,4 @@
-package flower.store;
+package ua.edu.ucu;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
