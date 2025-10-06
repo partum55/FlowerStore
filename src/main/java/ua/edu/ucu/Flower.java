@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Setter @Getter @ToString
+@Setter
+@Getter
+@ToString
 public class Flower {
     private double sepalLength;
     private FlowerColor color;
